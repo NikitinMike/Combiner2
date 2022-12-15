@@ -13,8 +13,8 @@ public class MainController {
 
     @ModelAttribute("messages")
     public List<String> messages() {
-        return new Combiner("вихри враждебные веют над_нами").fullOut();
-//        return new Combiner("у попа была собака").fullOut();
+//        return new Combiner("вихри враждебные веют над_нами").fullOut();
+        return new Combiner("у попа была собака").fullOut();
     }
 
     @GetMapping("/")
