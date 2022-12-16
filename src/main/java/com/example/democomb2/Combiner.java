@@ -18,7 +18,7 @@ public class Combiner {
     int[] parts; // какой части речи принадлежит
 
     public Combiner(String str) {
-        words = str.trim().split("\\s+");
+        words = str.trim().toLowerCase().split("\\s+");
         comb = new int[factorial(words.length)][words.length];
         IntStream.range(0, words.length).forEach(i -> comb[0][i] = i);
         amount = combiner(words.length);
