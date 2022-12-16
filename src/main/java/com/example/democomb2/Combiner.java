@@ -14,7 +14,8 @@ public class Combiner {
 
     int amount;
     int[][] comb;
-    String[] words;
+    String[] words; // слова
+    int[] parts; // какой части речи принадлежит
 
     public Combiner(String str) {
         words = str.trim().split("\\s+");
