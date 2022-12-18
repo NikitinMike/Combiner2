@@ -2,6 +2,8 @@ package com.example.democomb2;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +14,9 @@ import java.util.stream.IntStream;
 @Data
 public class Combiner {
 
+    @Autowired
+    static WordRepo wordRepo = SpringApplication.run(DemoComb2Application.class).getBean(WordRepo.class);
+
     int amount;
     int[][] comb;
     String[] words; // слова
@@ -19,6 +24,7 @@ public class Combiner {
 
     public Combiner(String str) {
         words = str.trim().toLowerCase().split("\\s+");
+        for (String word : words) log.info(wordRepo.findByWordLike(word).toString());
         comb = new int[factorial(words.length)][words.length];
         IntStream.range(0, words.length).forEach(i -> comb[0][i] = i);
         amount = combiner(words.length);

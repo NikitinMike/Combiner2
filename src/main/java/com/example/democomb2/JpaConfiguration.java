@@ -1,5 +1,6 @@
 package com.example.democomb2;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -15,6 +16,7 @@ import javax.sql.DataSource;
 import static org.springframework.orm.jpa.vendor.Database.MYSQL;
 
 @Configuration
+@EnableAutoConfiguration
 @EnableJpaRepositories("com.example.democomb2")
 public class JpaConfiguration {
     @Bean
