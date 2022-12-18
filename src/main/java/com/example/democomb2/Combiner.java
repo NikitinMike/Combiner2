@@ -3,7 +3,6 @@ package com.example.democomb2;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +17,9 @@ public class Combiner {
     int[][] comb;
     String[] words; // слова
     int[] parts; // какой части речи принадлежит
+
+//    @Autowired
+//    WordRepo wordRepo;
 
     public Combiner(String str) {
         words = str.trim().toLowerCase().split("\\s+");

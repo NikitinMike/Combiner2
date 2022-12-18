@@ -1,9 +1,5 @@
 package com.example.democomb2;
 
-import org.apache.catalina.core.ApplicationContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,8 +13,7 @@ public class MainController extends DataStreams {
 
     Combiner data = new Combiner("вихри враждебные веют над_нами");
 
-    @Autowired
-    WordRepo wordRepo;
+//    @Autowired WordRepo wordRepo;
 
     @ModelAttribute("title")
     public String title() {
@@ -30,13 +25,13 @@ public class MainController extends DataStreams {
         return data.fullOut();
     }
 
-    @Autowired
-    ConfigurableApplicationContext context;
+//    @Autowired
+//    ConfigurableApplicationContext context;
 
     @GetMapping("/")
     @ResponseBody
     public ModelAndView startPageGet() {
-        WordRepo wordRepo= context.getBean(WordRepo.class);
+//        WordRepo wordRepo= context.getBean(WordRepo.class);
 //        System.out.println(wordRepo.findByWordLike("а"));
         String s = vorona[(int) (vorona.length * Math.random())];
         data = new Combiner(s);
