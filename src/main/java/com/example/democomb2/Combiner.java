@@ -14,9 +14,6 @@ import java.util.stream.IntStream;
 @Data
 public class Combiner {
 
-    @Autowired
-    static WordRepo wordRepo = SpringApplication.run(DemoComb2Application.class).getBean(WordRepo.class);
-
     int amount;
     int[][] comb;
     String[] words; // слова
@@ -24,7 +21,7 @@ public class Combiner {
 
     public Combiner(String str) {
         words = str.trim().toLowerCase().split("\\s+");
-        for (String word : words) log.info(wordRepo.findByWordLike(word).toString());
+//        for (String word : words) log.info(wordRepo.findByWordLike(word).toString());
         comb = new int[factorial(words.length)][words.length];
         IntStream.range(0, words.length).forEach(i -> comb[0][i] = i);
         amount = combiner(words.length);
