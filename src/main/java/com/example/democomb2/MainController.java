@@ -13,8 +13,6 @@ public class MainController extends DataStreams {
 
     Combiner data = new Combiner("вихри враждебные веют над_нами");
 
-//    @Autowired WordRepo wordRepo;
-
     @ModelAttribute("title")
     public String title() {
         return "COMBINER:" + data.words.length + "/" + data.amount;
@@ -25,14 +23,9 @@ public class MainController extends DataStreams {
         return data.fullOut();
     }
 
-//    @Autowired
-//    ConfigurableApplicationContext context;
-
     @GetMapping("/")
     @ResponseBody
     public ModelAndView startPageGet() {
-//        WordRepo wordRepo= context.getBean(WordRepo.class);
-//        System.out.println(wordRepo.findByWordLike("а"));
         String s = vorona[(int) (vorona.length * Math.random())];
         data = new Combiner(s);
         return new ModelAndView("page");

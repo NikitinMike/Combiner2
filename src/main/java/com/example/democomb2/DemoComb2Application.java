@@ -4,15 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-//@EnableAutoConfiguration
 public class DemoComb2Application {
-//    @Autowired
-//    static WordRepo wordRepo;
 
     public static void main(String[] args) {
         SpringApplication.run(DemoComb2Application.class, args);
-//        wordRepo = SpringApplication.run(DemoComb2Application.class).getBean(WordRepo.class);
-//        System.out.println(wordRepo);
     }
 
 }
