@@ -11,6 +11,13 @@ import java.util.List;
 @Controller
 public class MainController extends DataStreams {
 
+    final
+    WordsRepository repository;
+
+    public MainController(WordsRepository repository) {
+        this.repository = repository;
+    }
+
     Combiner data = new Combiner("вихри враждебные веют над_нами");
 
     @ModelAttribute("title")
