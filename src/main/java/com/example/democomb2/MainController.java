@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class MainController extends DataStreams {
@@ -39,17 +40,11 @@ public class MainController extends DataStreams {
         String s = vorona[(int) (vorona.length * Math.random())];
         data = new Combiner(s);
         System.out.println(s);
-        System.out.println(getWords(data.getWords()));
+        for (WordsEntity word : getWords(data.getWords())) System.out.println(word);
         return new ModelAndView("page");
     }
 
     private List<WordsEntity> getWords(String[] words) {
-        List<WordsEntity> list = new ArrayList<>();
-        for (String word : words) {
-            WordsEntity byWord = repository.findByWord(word);
-            System.out.println(byWord);
-            list.add(byWord);
-        }
-        return list;
+        return Arrays.stream(words).flatMap(word -> repository.findAllByWord(word).stream()).collect(Collectors.toList());
     }
 }
