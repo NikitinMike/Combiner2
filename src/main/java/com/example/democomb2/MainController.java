@@ -23,22 +23,12 @@ public class MainController extends DataStreams {
     String[] words; // слова
     int[] parts; // какой части речи принадлежит
 
-//    @ModelAttribute("title")
-//    public String title() {
-//        return "COMBINER:" + data.words.length + "/" + data.amount;
-//    }
-
-//    @ModelAttribute("messages")
-//    public List<String> messages() {
-//        return data.fullOut();
-//    }
-
     @GetMapping("/")
     @ResponseBody
     public ModelAndView startPageGet(Model model) {
 //        String s = vorona[(int) (vorona.length * Math.random())];
-//        String s = sobaka[(int) (sobaka.length * Math.random())];
-        String s = chuchelo[(int) (chuchelo.length * Math.random())];
+        String s = sobaka[(int) (sobaka.length * Math.random())];
+//        String s = chuchelo[(int) (chuchelo.length * Math.random())];
         System.out.println("----------------------------------");
         System.out.println(s);
         data = new Combiner(s);

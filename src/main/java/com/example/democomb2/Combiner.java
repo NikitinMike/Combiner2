@@ -41,8 +41,18 @@ public class Combiner {
         return out;
     }
 
+    String wordSplit(String word) {
+//        return String.join("-", word.split("[ёуеыаоэяию]"));
+//        String[] s = word.replaceAll("([^ёуеыаоэяию]*[ёуеыаоэяию])", "$1-").split("-");
+        String[] s = word.replaceAll("([ёуеыаоэяию])", "$1=").split("=");
+//        String last = s[s.length - 1];
+//        if (last.matches("([ёуеыаоэяию])")) return String.join("-", s);
+//        s[s.length - 2] += last;
+        return String.join("-",s);
+    }
+
     String out(int[] a) {
-        return Arrays.stream(a).mapToObj(j -> words[j] + ' ').collect(Collectors.joining());
+        return Arrays.stream(a).mapToObj(j -> wordSplit(words[j]) + ' ').collect(Collectors.joining());
     }
 
     int combiner(int n) {
