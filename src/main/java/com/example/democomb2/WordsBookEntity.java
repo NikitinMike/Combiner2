@@ -74,6 +74,14 @@ public class WordsBookEntity {
     @Column(name = "nakl")
     private String nakl;
 
+    public WordsBookEntity(String word) {
+        this.word = word;
+//        this.iid = (long) (5000000+Math.random()*1000000);
+//        this.type= "сущ";
+//        this.gender = "ср";
+//        this.wcase = "им";
+    }
+
     String notNull(String tag, String s) {
         if (s == null) return "";
         return String.format(",%s='%s'", tag, s);

@@ -3,9 +3,7 @@ package com.example.democomb2;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -18,8 +16,7 @@ public class Combiner {
     int[][] comb;
     String[] words; // слова
     int[] parts; // какой части речи принадлежит
-    HashMap<String, WordsBookEntity> wordsEntityHashMap;
-//    List<WordsBookEntity> [] wordBook;
+    Hashtable<String, WordsBookEntity> wordsEntityHashMap;
 
     public Combiner(String str, WordsBookRepository repository) {
         this.repository = repository;
@@ -40,11 +37,14 @@ public class Combiner {
 //        return Arrays.stream(words).flatMap(word -> repository.findAllByWord(word).stream()).collect(Collectors.toList());
         for (String word : words) {
 //            String [] subWords = word.split("_");
-//            if(subWords.length>1) wordsEntityList.addAll(readWordsBook(subWords));
-//            else wordsEntityList.addAll(repository.findAllByWord(word));
-            List<WordsBookEntity> wordsEntityList = repository.findAllByWord(word);
-            System.out.println(wordsEntityList);
-//            wordsEntityHashMap.put(word, wordsEntityList.get(0));
+//            if(subWords.length>1) wordsEntity.addAll(readWordsBook(subWords));
+//            else wordsEntity.addAll(repository.findAllByWord(word));
+            List<WordsBookEntity> wordsBookEntities = repository.findAllByWord(word);
+            if(wordsBookEntities==null||wordsBookEntities.isEmpty())
+                wordsBookEntities = Collections.singletonList(new WordsBookEntity(word));
+            System.out.println(wordsBookEntities);
+//            WordsBookEntity [] wordBook = (WordsBookEntity[]) wordsBookEntities.toArray();
+//            wordsEntityHashMap.put(word,wordsEntity);
         }
 //        for (WordsBookEntity word : wordsEntityList) System.out.println(word);
         //            wordsEntityHashMap.put(word.getWord(),word);
