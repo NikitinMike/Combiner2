@@ -20,7 +20,8 @@ public class MainController extends DataStreams {
     @GetMapping("/")
     @ResponseBody
     public ModelAndView startPageGet(Model model) {
-        String s = vorona[(int) (vorona.length * Math.random())].replaceAll("_"," ");
+        String s = hymn[(int) (hymn.length * Math.random())].replaceAll("[_,!.—]+"," ");
+//        String s = vorona[(int) (vorona.length * Math.random())].replaceAll("_"," ");
 //        String s = sobaka[(int) (sobaka.length * Math.random())];
 //        String s = chuchelo[(int) (chuchelo.length * Math.random())];
         System.out.println("----------------------------------");

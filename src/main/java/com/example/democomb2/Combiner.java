@@ -3,7 +3,6 @@ package com.example.democomb2;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -20,32 +19,37 @@ public class Combiner {
     String[] words; // слова
     int[] parts; // какой части речи принадлежит
     HashMap<String, WordsBookEntity> wordsEntityHashMap;
+//    List<WordsBookEntity> [] wordBook;
 
     public Combiner(String str, WordsBookRepository repository) {
-        this.repository=repository;
+        this.repository = repository;
         words = str.trim().toLowerCase().split("\\s+");
-        if(repository!=null) readWordsBook(words);
+        if (repository != null) readWordsBook(words);
         comb = new int[factorial(words.length)][words.length];
         IntStream.range(0, words.length).forEach(i -> comb[0][i] = i);
         amount = combiner(words.length);
-    }
-
-    private List<WordsBookEntity> readWordsBook(String[] words) {
-//        return Arrays.stream(words).flatMap(word -> repository.findAllByWord(word).stream()).collect(Collectors.toList());
-        List<WordsBookEntity> wordsEntityList = new ArrayList<>();
-        for (String word : words) {
-            String [] subWords = word.split("_");
-            if(subWords.length>1) wordsEntityList.addAll(readWordsBook(subWords));
-            else wordsEntityList.addAll(repository.findAllByWord(word));
-        }
-        for (WordsBookEntity word : wordsEntityList) System.out.println(word);
-        return wordsEntityList;
     }
 
     public static <T> void swap(T[] a, int i, int j) {
         T t = a[i];
         a[i] = a[j];
         a[j] = t;
+    }
+
+    private List<WordsBookEntity> readWordsBook(String[] words) {
+//        return Arrays.stream(words).flatMap(word -> repository.findAllByWord(word).stream()).collect(Collectors.toList());
+        for (String word : words) {
+//            String [] subWords = word.split("_");
+//            if(subWords.length>1) wordsEntityList.addAll(readWordsBook(subWords));
+//            else wordsEntityList.addAll(repository.findAllByWord(word));
+            List<WordsBookEntity> wordsEntityList = repository.findAllByWord(word);
+            System.out.println(wordsEntityList);
+//            wordsEntityHashMap.put(word, wordsEntityList.get(0));
+        }
+//        for (WordsBookEntity word : wordsEntityList) System.out.println(word);
+        //            wordsEntityHashMap.put(word.getWord(),word);
+//        return wordsEntityList;
+        return null;
     }
 
     void hackSwap(int[] arr, int i, int j) {
