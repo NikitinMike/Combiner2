@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "words", schema = "words")
-public class WordsEntity {
+public class WordsBookEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "IID")

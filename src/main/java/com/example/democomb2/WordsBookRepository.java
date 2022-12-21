@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface WordsRepository extends CrudRepository<WordsEntity, Long> {
-    List<WordsEntity> findAllByWord(String word);
+public interface WordsBookRepository extends CrudRepository<WordsBookEntity, Long> {
+    List<WordsBookEntity> findAllByWord(String word);
 }

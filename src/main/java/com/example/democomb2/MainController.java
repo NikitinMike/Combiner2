@@ -9,9 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController extends DataStreams {
 
-    final WordsRepository repository;
+    final WordsBookRepository repository;
 
-    public MainController(WordsRepository repository) {
+    public MainController(WordsBookRepository repository) {
         this.repository = repository;
     }
 
