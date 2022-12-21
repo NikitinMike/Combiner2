@@ -86,7 +86,7 @@ public class WordsEntity {
 
     @Override
     public String toString() {
-        return word
+        return wordSplit(word)
 //                + "iid=" + iid
 //                + ", word='" + word + '\''
 //                + ", code=" + code
@@ -108,6 +108,13 @@ public class WordsEntity {
                 + notNull("vozv", vozv)
                 + notNull("nakl", nakl)
                 ;
+    }
+
+    String wordSplit(String word) {
+//        return String.join("-", word.split("[ёуеыаоэяию]"));
+        word = word.replaceAll("([ёуеыаоэяию])", "$1=");
+        word = word.replaceAll("=([^ёуеыаоэяию]+)$","$1");
+        return String.join("-",word.split("="));
     }
 
     private String notNull(String tag, Long c) {

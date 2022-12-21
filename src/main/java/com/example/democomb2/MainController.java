@@ -26,8 +26,8 @@ public class MainController extends DataStreams {
     @GetMapping("/")
     @ResponseBody
     public ModelAndView startPageGet(Model model) {
-//        String s = vorona[(int) (vorona.length * Math.random())];
-        String s = sobaka[(int) (sobaka.length * Math.random())];
+        String s = vorona[(int) (vorona.length * Math.random())];
+//        String s = sobaka[(int) (sobaka.length * Math.random())];
 //        String s = chuchelo[(int) (chuchelo.length * Math.random())];
         System.out.println("----------------------------------");
         System.out.println(s);
