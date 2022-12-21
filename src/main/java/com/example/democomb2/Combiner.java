@@ -16,7 +16,7 @@ public class Combiner {
     int[][] comb;
     String[] words; // слова
     int[] parts; // какой части речи принадлежит
-    Hashtable<String, WordsBookEntity> wordsEntityHashMap;
+    Hashtable<String, List<String>> wordsEntityHashMap;
 
     public Combiner(String str, WordsBookRepository repository) {
         this.repository = repository;
@@ -25,6 +25,14 @@ public class Combiner {
         comb = new int[factorial(words.length)][words.length];
         IntStream.range(0, words.length).forEach(i -> comb[0][i] = i);
         amount = combiner(words.length);
+    }
+
+    public String wordSplit(String word) {
+//        return String.join("-", word.split("[ёуеыаоэяию]"));
+        return String.join("-", word
+                .replaceAll("([ёуеыаоэяию])", "$1=")
+                .replaceAll("=([^ёуеыаоэяию]+)$", "$1")
+                .split("="));
     }
 
     public static <T> void swap(T[] a, int i, int j) {
@@ -64,7 +72,7 @@ public class Combiner {
     }
 
     String out(int[] a) {
-        return Arrays.stream(a).mapToObj(j -> words[j] + ' ').collect(Collectors.joining());
+        return Arrays.stream(a).mapToObj(j -> wordSplit(words[j]) + ' ').collect(Collectors.joining());
     }
 
     int combiner(int n) {

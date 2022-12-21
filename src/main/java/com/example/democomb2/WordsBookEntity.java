@@ -94,7 +94,7 @@ public class WordsBookEntity {
 
     @Override
     public String toString() {
-        return // word + ":" +
+        return  word + ":" +
                 wordSplit(word)
 //                + "iid=" + iid
 //                + ", word='" + word + '\''
