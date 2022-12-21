@@ -3,6 +3,7 @@ package com.example.democomb2;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,16 +13,32 @@ import java.util.stream.IntStream;
 @Data
 public class Combiner {
 
+    final WordsRepository repository;
     int amount;
     int[][] comb;
     String[] words; // слова
     int[] parts; // какой части речи принадлежит
+    List<WordsEntity> wordsEntityList;
 
-    public Combiner(String str) {
+    public Combiner(String str, WordsRepository repository) {
+        this.repository=repository;
         words = str.trim().toLowerCase().split("\\s+");
+        if(repository!=null) wordsEntityList=getWords(words);
         comb = new int[factorial(words.length)][words.length];
         IntStream.range(0, words.length).forEach(i -> comb[0][i] = i);
         amount = combiner(words.length);
+    }
+
+    private List<WordsEntity> getWords(String[] words) {
+//        return Arrays.stream(words).flatMap(word -> repository.findAllByWord(word).stream()).collect(Collectors.toList());
+        List<WordsEntity> wordsEntityList = new ArrayList<>();
+        for (String word : words) {
+            String [] subWords = word.split("_");
+            if(subWords.length>1) wordsEntityList.addAll(getWords(subWords));
+            else wordsEntityList.addAll(repository.findAllByWord(word));
+        }
+        for (WordsEntity word : wordsEntityList) System.out.println(word);
+        return wordsEntityList;
     }
 
     public static <T> void swap(T[] a, int i, int j) {

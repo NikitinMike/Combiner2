@@ -110,11 +110,12 @@ public class WordsEntity {
                 ;
     }
 
-    String wordSplit(String word) {
+    public String wordSplit(String word) {
 //        return String.join("-", word.split("[ёуеыаоэяию]"));
-        word = word.replaceAll("([ёуеыаоэяию])", "$1=");
-        word = word.replaceAll("=([^ёуеыаоэяию]+)$","$1");
-        return String.join("-",word.split("="));
+        return String.join("-", word
+                .replaceAll("([ёуеыаоэяию])", "$1=")
+                .replaceAll("=([^ёуеыаоэяию]+)$", "$1")
+                .split("="));
     }
 
     private String notNull(String tag, Long c) {
