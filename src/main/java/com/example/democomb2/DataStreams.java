@@ -55,6 +55,8 @@ public class DataStreams {
             "Чучело-мяучело на_трубе сидело"
     };
 
+    String [][] in = {hymn,sobaka,vorona,chuchelo};
+
     static List<WordsBookEntity> readWordsBook(WordsBookRepository repository, String[] words) {
 //        return Arrays.stream(words).flatMap(word -> repository.findAllByWord(word).stream()).collect(Collectors.toList());
         for (String word : words) {

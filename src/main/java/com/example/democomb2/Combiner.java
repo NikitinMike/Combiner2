@@ -13,7 +13,6 @@ import static com.example.democomb2.Utils.swapClone;
 @Data
 public class Combiner {
 
-//    final WordsBookRepository repository;
     int amount;
     int[][] comb;
     String[] words; // слова
@@ -21,7 +20,6 @@ public class Combiner {
     Hashtable<String, List<String>> wordsEntityHashMap;
 
     public Combiner(String str, WordsBookRepository repository) {
-//        this.repository = repository;
         words = str.trim().toLowerCase().split("\\s+");
         if (repository != null) DataStreams.readWordsBook(repository,words);
         comb = new int[factorial(words.length)][words.length];

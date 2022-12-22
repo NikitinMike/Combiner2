@@ -34,14 +34,12 @@ public class Utils {
     public static String wordSplit(String word) {
 //        return String.join("-", word.split("[ёуеыаоэяию]"));
 
-        String word1 = word
-                .replaceAll("([ёуеыаоэяию])", "$1=")
-                .replaceAll("=([^ёуеыаоэяию]+)$", "$1");
+        String word1 = word.replaceAll("([ёуеыаоэяию])", "$1=");
 
-        String word2 = word
-                .replaceAll("([ёуеыаоэяию][^ёуеыаоэяию]?)", "$1=")
-                .replaceAll("=([^ёуеыаоэяию]+)$", "$1");
+        String word2 = word.replaceAll("([ёуеыаоэяию][^ёуеыаоэяию]?)", "$1=");
 
-        return String.join("-", word1.split("="));
+        return String.join("-",
+                word1.replaceAll("=([^ёуеыаоэяию]+)$", "$1")
+                        .split("="));
     }
 }

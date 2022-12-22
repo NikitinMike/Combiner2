@@ -3,7 +3,6 @@ package com.example.democomb2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,17 +15,18 @@ import java.util.stream.Collectors;
 @Controller
 public class MainController extends DataStreams {
 
-    final WordsBookRepository repository;
-//        new File(Objects.requireNonNull(ClassLoader.getResource("fileTest.txt")).getFile());
+    //        new File(Objects.requireNonNull(ClassLoader.getResource("fileTest.txt")).getFile());
     static final Set<String> words = readWordBook(new File("D:\\DBWords\\wordbook.txt"));
+    WordsBookRepository repository = null;
     Combiner data = new Combiner("вихри враждебные веют над_нами", null);
+    int i = 0;
 
     public MainController(WordsBookRepository repository) {
-        this.repository = repository;
+//        this.repository = repository;
 //        System.out.println();
 //        words.stream().sorted().forEach(s -> System.out.print(s + ","));
 //        System.out.println();
-        System.out.printf("Wordbook %s words%n",words.size());
+        System.out.printf("Wordbook %s words%n", words.size());
     }
 
     @GetMapping("/random")
@@ -45,11 +45,12 @@ public class MainController extends DataStreams {
         return new ModelAndView("page");
     }
 
-    @GetMapping("/{v}")
+    @GetMapping("/")
     @ResponseBody
-    public ModelAndView startPageGet(Model model, @PathVariable int v) {
-        List<String> list = Arrays.stream(hymn)
-                .map(s -> new Combiner(s.replaceAll("[_,!.—]+", " "), repository).randomOut(v))
+    public ModelAndView startPageGet(Model model) {
+        if (i >= in.length) i = 0;
+        List<String> list = Arrays.stream(in[i++])
+                .map(s -> new Combiner(s.replaceAll("[_,!.—]+", " "), repository).randomOut(0))
                 .collect(Collectors.toList());
         model.addAttribute("messages", list);
         model.addAttribute("title", "START:" + list.size());
