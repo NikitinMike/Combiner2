@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DataStreams {
     String[] hymn = {
@@ -57,6 +54,25 @@ public class DataStreams {
             "Потому_что песенка чучела про_то_что",
             "Чучело-мяучело на_трубе сидело"
     };
+
+    static List<WordsBookEntity> readWordsBook(WordsBookRepository repository, String[] words) {
+//        return Arrays.stream(words).flatMap(word -> repository.findAllByWord(word).stream()).collect(Collectors.toList());
+        for (String word : words) {
+//            String [] subWords = word.split("_");
+//            if(subWords.length>1) wordsEntity.addAll(readWordsBook(subWords));
+//            else wordsEntity.addAll(repository.findAllByWord(word));
+            List<WordsBookEntity> wordsBookEntities = repository.findAllByWord(word);
+            if(wordsBookEntities==null||wordsBookEntities.isEmpty())
+                wordsBookEntities = Collections.singletonList(new WordsBookEntity(word));
+            System.out.println(wordsBookEntities);
+//            WordsBookEntity [] wordBook = (WordsBookEntity[]) wordsBookEntities.toArray();
+//            wordsEntityHashMap.put(word,wordsEntity);
+        }
+//        for (WordsBookEntity word : wordsEntityList) System.out.println(word);
+        //            wordsEntityHashMap.put(word.getWord(),word);
+//        return wordsEntityList;
+        return null;
+    }
 
     static Set<String> readWordBook(File fileIn) {
         try (BufferedReader reader = Files.newBufferedReader(fileIn.toPath())) {

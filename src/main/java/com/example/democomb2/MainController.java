@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class MainController extends DataStreams {
@@ -38,6 +42,17 @@ public class MainController extends DataStreams {
         data = new Combiner(s, repository);
         model.addAttribute("title", "COMBINER:" + data.words.length + "/" + data.amount);
         model.addAttribute("messages", data.fullOut());
+        return new ModelAndView("page");
+    }
+
+    @GetMapping("/random")
+    @ResponseBody
+    public ModelAndView randomPageGet(Model model) {
+        List<String> list = Arrays.stream(hymn)
+                .map(s -> new Combiner(s.replaceAll("[_,!.—]+", " "), repository).randomOut())
+                .collect(Collectors.toList());
+        model.addAttribute("messages", list);
+        model.addAttribute("title", "RANDOM:" + list.size());
         return new ModelAndView("page");
     }
 }

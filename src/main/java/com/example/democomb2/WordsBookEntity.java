@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import static com.example.democomb2.Utils.notNull;
+
 @Entity
 @Getter
 @Setter
@@ -82,18 +84,10 @@ public class WordsBookEntity {
 //        this.wcase = "им";
     }
 
-    String notNull(String tag, String s) {
-        return s == null ? "" : String.format(",%s='%s'", tag, s);
-    }
-
-    String notNull(String tag, Byte b) {
-        return (b == null || 0 == b) ? "" : String.format(",%s=%d", tag, b);
-    }
-
     @Override
     public String toString() {
         return "{" + word + ":" +
-                wordSplit(word)
+                Utils.wordSplit(word)
 //                + "iid=" + iid
 //                + ", word='" + word + '\''
                 + notNull("", code)
@@ -115,17 +109,5 @@ public class WordsBookEntity {
                 + notNull("vozv", vozv)
                 + notNull("nakl", nakl)
                 + "}";
-    }
-
-    public String wordSplit(String word) {
-//        return String.join("-", word.split("[ёуеыаоэяию]"));
-        return String.join("-", word
-                .replaceAll("([ёуеыаоэяию])", "$1=")
-                .replaceAll("=([^ёуеыаоэяию]+)$", "$1")
-                .split("="));
-    }
-
-    private String notNull(String tag, Long c) {
-        return (c == null || 0 == c) ? "" : String.format(",%s=%d", tag, c);
     }
 }
