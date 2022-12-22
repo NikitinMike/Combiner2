@@ -3,6 +3,7 @@ package com.example.democomb2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +20,6 @@ public class MainController extends DataStreams {
     static final Set<String> words = readWordBook(new File("D:\\DBWords\\wordbook.txt"));
     WordsBookRepository repository = null;
     Combiner data = new Combiner("вихри враждебные веют над_нами", null);
-    int i = 0;
 
     public MainController(WordsBookRepository repository) {
 //        this.repository = repository;
@@ -45,11 +45,10 @@ public class MainController extends DataStreams {
         return new ModelAndView("page");
     }
 
-    @GetMapping("/")
+    @GetMapping("/{i}")
     @ResponseBody
-    public ModelAndView startPageGet(Model model) {
-        if (i >= in.length) i = 0;
-        List<String> list = Arrays.stream(in[i++])
+    public ModelAndView startPageGet(Model model, @PathVariable int i) {
+        List<String> list = Arrays.stream(in[i])
                 .map(s -> new Combiner(s.replaceAll("[_,!.—]+", " "), repository).randomOut(0))
                 .collect(Collectors.toList());
         model.addAttribute("messages", list);
