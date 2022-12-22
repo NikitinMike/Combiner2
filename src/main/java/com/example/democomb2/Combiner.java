@@ -58,7 +58,7 @@ public class Combiner {
     }
 
     List<String> fullOut() {
-        return Arrays.stream(comb).map((int[] a) -> out(a)).collect(Collectors.toList());
+        return Arrays.stream(comb).map(this::out).collect(Collectors.toList());
     }
 
 }
