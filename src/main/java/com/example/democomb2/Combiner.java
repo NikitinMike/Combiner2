@@ -46,8 +46,9 @@ public class Combiner {
         return 2;
     }
 
-    public String randomOut() {
+    public String randomOut(int v) {
 //        for (String s:words) System.out.print(s+",");System.out.println(words.length);
+        if (v==0) return out(comb[0]);
         if (words.length > 3) return out(comb[(int) (Math.random() * words.length)]);
         return out(comb[(int) (Math.random() * 2)]);
 //        return out(comb[(int)(Math.random()*amount)]);

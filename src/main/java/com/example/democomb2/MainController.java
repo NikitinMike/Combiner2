@@ -3,11 +3,11 @@ package com.example.democomb2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -29,9 +29,9 @@ public class MainController extends DataStreams {
         System.out.printf("Wordbook %s words%n",words.size());
     }
 
-    @GetMapping("/")
+    @GetMapping("/random")
     @ResponseBody
-    public ModelAndView startPageGet(Model model) {
+    public ModelAndView randomPageGet(Model model) {
         String s = hymn[(int) (hymn.length * Math.random())].replaceAll("[_,!.—]+", " ");
 //        String s = vorona[(int) (vorona.length * Math.random())].replaceAll("_"," ");
 //        String s = sobaka[(int) (sobaka.length * Math.random())];
@@ -45,14 +45,14 @@ public class MainController extends DataStreams {
         return new ModelAndView("page");
     }
 
-    @GetMapping("/random")
+    @GetMapping("/{v}")
     @ResponseBody
-    public ModelAndView randomPageGet(Model model) {
+    public ModelAndView startPageGet(Model model, @PathVariable int v) {
         List<String> list = Arrays.stream(hymn)
-                .map(s -> new Combiner(s.replaceAll("[_,!.—]+", " "), repository).randomOut())
+                .map(s -> new Combiner(s.replaceAll("[_,!.—]+", " "), repository).randomOut(v))
                 .collect(Collectors.toList());
         model.addAttribute("messages", list);
-        model.addAttribute("title", "RANDOM:" + list.size());
+        model.addAttribute("title", "START:" + list.size());
         return new ModelAndView("page");
     }
 }
