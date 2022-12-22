@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.File;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 public class MainController extends DataStreams {
-
-    //        new File(Objects.requireNonNull(ClassLoader.getResource("fileTest.txt")).getFile());
     static final Set<String> words = readWordBook(new File("D:\\DBWords\\wordbook.txt"));
     WordsBookRepository repository = null;
     Combiner data = new Combiner("вихри враждебные веют над_нами", null);
@@ -27,6 +27,19 @@ public class MainController extends DataStreams {
 //        words.stream().sorted().forEach(s -> System.out.print(s + ","));
 //        System.out.println();
         System.out.printf("Wordbook %s words%n", words.size());
+    }
+
+    Stream<String> getText() {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("HappyNewYear.txt")) {
+            assert inputStream != null;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+            //            lines.forEach(System.out::println);
+//            reader.close();
+//            return lines.collect(Collectors.toList());
+            return reader.lines();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/random")
@@ -48,7 +61,8 @@ public class MainController extends DataStreams {
     @GetMapping("/{i}")
     @ResponseBody
     public ModelAndView startPageGet(Model model, @PathVariable int i) {
-        List<String> list = Arrays.stream(in[i])
+        List<String> list = // getText()
+                Arrays.stream(in[i])
                 .map(s -> new Combiner(s.replaceAll("[_,!.—]+", " "), repository).randomOut(0))
                 .collect(Collectors.toList());
         model.addAttribute("messages", list);
