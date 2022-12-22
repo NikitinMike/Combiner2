@@ -83,41 +83,38 @@ public class WordsBookEntity {
     }
 
     String notNull(String tag, String s) {
-        if (s == null) return "";
-        return String.format(",%s='%s'", tag, s);
+        return s == null ? "" : String.format(",%s='%s'", tag, s);
     }
 
     String notNull(String tag, Byte b) {
-        if (b == null || 0 == b) return "";
-        return String.format(",%s=%d", tag, b);
+        return (b == null || 0 == b) ? "" : String.format(",%s=%d", tag, b);
     }
 
     @Override
     public String toString() {
-        return  word + ":" +
+        return "{" + word + ":" +
                 wordSplit(word)
 //                + "iid=" + iid
 //                + ", word='" + word + '\''
-//                + ", code=" + code
-//                + notNull("codeParent", codeParent)
-                        + ", " + type
-                        + notNull("typeSub", typeSub)
-                        + notNull("typeSsub", typeSsub)
-                        + notNull("plural", plural)
-                        + notNull("gender", gender)
-                        + notNull("wcase", wcase)
-                        + notNull("comp", comp)
-                        + notNull("soul", soul)
-                        + notNull("transit", transit)
-                        + notNull("perfect", perfect)
-                        + notNull("face", face)
-                        + notNull("kind", kind)
-                        + notNull("time", time)
-                        + notNull("inf", inf)
-                        + notNull("vozv", vozv)
-                        + notNull("nakl", nakl)
-                        + "|"
-                ;
+                + notNull("", code)
+                + notNull("parent", codeParent)
+                + notNull("", type)
+                + notNull("typeSub", typeSub)
+                + notNull("typeSsub", typeSsub)
+                + notNull("plural", plural)
+                + notNull("gender", gender)
+                + notNull("wcase", wcase)
+                + notNull("comp", comp)
+                + notNull("soul", soul)
+                + notNull("transit", transit)
+                + notNull("perfect", perfect)
+                + notNull("face", face)
+                + notNull("kind", kind)
+                + notNull("time", time)
+                + notNull("inf", inf)
+                + notNull("vozv", vozv)
+                + notNull("nakl", nakl)
+                + "}";
     }
 
     public String wordSplit(String word) {
@@ -129,7 +126,6 @@ public class WordsBookEntity {
     }
 
     private String notNull(String tag, Long c) {
-        if (c == null || 0 == c) return "";
-        return String.format(",%s=%d", tag, c);
+        return (c == null || 0 == c) ? "" : String.format(",%s=%d", tag, c);
     }
 }

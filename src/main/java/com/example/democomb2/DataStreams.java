@@ -1,5 +1,14 @@
 package com.example.democomb2;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class DataStreams {
     String[] hymn = {
             "Братских народов союз вековой,",
@@ -48,4 +57,33 @@ public class DataStreams {
             "Потому_что песенка чучела про_то_что",
             "Чучело-мяучело на_трубе сидело"
     };
+
+    static Set<String> readWordBook(File fileIn) {
+        try (BufferedReader reader = Files.newBufferedReader(fileIn.toPath())) {
+//            long l = 0, ll = 0, ls = 0, w = 0;
+            Set<String> wordSet = new HashSet<>();
+            do {
+                String line = reader.readLine();
+//                l += line.length();
+                String[] lines = line.split("#");
+//                System.out.print(lines[0]+",");
+                String[] words = lines[1].split(",");
+//                Arrays.stream(words).forEach(System.out::print);
+//                System.out.println(String.join(",", words));
+//                w += words.length;
+                List<String> list = Arrays.asList(words);
+//                ll += list.size();
+                Set<String> set = new HashSet<>(list);
+//                ls += set.size();
+                wordSet.addAll(set);
+            } while (reader.ready());
+//            System.out.println(l);
+//            System.out.println(w);
+//            System.out.println(ll);
+//            System.out.println(ls);
+            return wordSet;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
