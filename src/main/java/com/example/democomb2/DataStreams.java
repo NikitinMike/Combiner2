@@ -66,7 +66,7 @@ public class DataStreams {
             List<WordsBookEntity> wordsBookEntities = repository.findAllByWord(word);
             if (wordsBookEntities == null || wordsBookEntities.isEmpty())
                 wordsBookEntities = Collections.singletonList(new WordsBookEntity(word));
-            System.out.println(wordsBookEntities);
+//            System.out.println(wordsBookEntities);
 //            WordsBookEntity [] wordBook = (WordsBookEntity[]) wordsBookEntities.toArray();
 //            wordsEntityHashMap.put(word,wordsEntity);
         }
@@ -105,13 +105,13 @@ public class DataStreams {
         }
     }
 
-    List<String> getText() {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("HappyNewYear.txt")) {
+    List<String> getText(String fileName) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName)) {
             assert inputStream != null;
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-//            reader.close();
-            return reader.lines().filter(p -> !p.isEmpty())
-                    .map(s -> s.replaceAll("[_,!.—?:]+", " "))
+            return reader.lines() // .map(s -> s.replaceAll("[-\"'_,!.—?:;\\d\\s]+", " ")
+                    .map(s -> s.replaceAll("[^а-яА-ЯёЁ]+", " ")
+                    .trim()).filter(p -> !p.isEmpty())
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);

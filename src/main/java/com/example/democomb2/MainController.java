@@ -46,11 +46,11 @@ public class MainController extends DataStreams {
     @GetMapping("/")
     @ResponseBody
     public ModelAndView startPage(Model model) {
-        List<String> text = getText().stream()
-                .map(s -> new Combiner(s, repository).randomOut(1))
+        List<String> text = getText("HappyNewYear.txt").stream()
+                .map(s -> new Combiner(s, repository).randomOut(0))
                 .collect(Collectors.toList());
 //        list.stream().map(Utils::wordSplit).forEach(System.out::println);
-//        System.out.println("*"+list.size());
+        System.out.println("*" + text.size());
         model.addAttribute("messages", text);
         model.addAttribute("title", "START:" + text.size());
         return new ModelAndView("page");
@@ -59,8 +59,8 @@ public class MainController extends DataStreams {
     @GetMapping("/{i}")
     @ResponseBody
     public ModelAndView startPageGet(Model model, @PathVariable int i) {
-        List<String> list = Arrays.stream(in[i%4])
-                .map(s -> new Combiner(s.replaceAll("[_,!.—?]+", " "), repository).randomOut(0))
+        List<String> list = Arrays.stream(in[i % 4])
+                .map(s -> new Combiner(s.replaceAll("[_,!.—?]+", " "), repository).randomOut(1))
                 .collect(Collectors.toList());
         model.addAttribute("messages", list);
         model.addAttribute("title", "START:" + list.size());

@@ -3,7 +3,9 @@ package com.example.democomb2;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -20,11 +22,12 @@ public class Combiner {
     Hashtable<String, List<String>> wordsEntityHashMap;
 
     public Combiner(String str, WordsBookRepository repository) {
+//        System.out.println(str);
         words = str.trim().toLowerCase().split("\\s+");
-        if (repository != null) DataStreams.readWordsBook(repository,words);
+//        if (repository != null) DataStreams.readWordsBook(repository,words);
         comb = new int[factorial(words.length)][words.length];
         IntStream.range(0, words.length).forEach(i -> comb[0][i] = i);
-        amount = combiner(words.length);
+        amount = words.length > 1 ? combiner(words.length) : 1;
     }
 
     String out(int[] a) {
@@ -46,7 +49,7 @@ public class Combiner {
 
     public String randomOut(int v) {
 //        for (String s:words) System.out.print(s+",");System.out.println(words.length);
-        if (v==0) return out(comb[0]);
+        if (v == 0) return out(comb[0]);
         if (words.length > 3) return out(comb[(int) (Math.random() * words.length)]);
         return out(comb[(int) (Math.random() * 2)]);
 //        return out(comb[(int)(Math.random()*amount)]);
