@@ -109,12 +109,10 @@ public class DataStreams {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("HappyNewYear.txt")) {
             assert inputStream != null;
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-            List<String> lines = reader.lines().filter(p->!p.isEmpty())
-                    .map(s -> s.replaceAll("[_,!.—]+", " "))
+//            reader.close();
+            return reader.lines().filter(p -> !p.isEmpty())
+                    .map(s -> s.replaceAll("[_,!.—?:]+", " "))
                     .collect(Collectors.toList());
-            reader.close();
-//            lines.forEach(System.out::println);
-            return lines;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
