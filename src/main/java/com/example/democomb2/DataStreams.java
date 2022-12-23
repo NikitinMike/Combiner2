@@ -1,10 +1,10 @@
 package com.example.democomb2;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DataStreams {
     String[] hymn = {
@@ -55,7 +55,7 @@ public class DataStreams {
             "Чучело-мяучело на_трубе сидело"
     };
 
-    String [][] in = {hymn,sobaka,vorona,chuchelo};
+    String[][] in = {hymn, sobaka, vorona, chuchelo};
 
     static List<WordsBookEntity> readWordsBook(WordsBookRepository repository, String[] words) {
 //        return Arrays.stream(words).flatMap(word -> repository.findAllByWord(word).stream()).collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class DataStreams {
 //            if(subWords.length>1) wordsEntity.addAll(readWordsBook(subWords));
 //            else wordsEntity.addAll(repository.findAllByWord(word));
             List<WordsBookEntity> wordsBookEntities = repository.findAllByWord(word);
-            if(wordsBookEntities==null||wordsBookEntities.isEmpty())
+            if (wordsBookEntities == null || wordsBookEntities.isEmpty())
                 wordsBookEntities = Collections.singletonList(new WordsBookEntity(word));
             System.out.println(wordsBookEntities);
 //            WordsBookEntity [] wordBook = (WordsBookEntity[]) wordsBookEntities.toArray();
@@ -100,6 +100,21 @@ public class DataStreams {
 //            System.out.println(ll);
 //            System.out.println(ls);
             return wordSet;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    List<String> getText() {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("HappyNewYear.txt")) {
+            assert inputStream != null;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+            List<String> lines = reader.lines().filter(p->!p.isEmpty())
+                    .map(s -> s.replaceAll("[_,!.—]+", " "))
+                    .collect(Collectors.toList());
+            reader.close();
+//            lines.forEach(System.out::println);
+            return lines;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
