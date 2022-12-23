@@ -32,12 +32,27 @@ public class Utils {
     }
 
     public static String wordSplit(String word) {
-        return String.join("-", word
+        return "["+ String.join("-", word
                 .replaceAll("([ёуеыаоэяию])", "$1=")
                 .replaceAll("=([^ёуеыаоэяию]+)$", "$1")
                 .replaceAll("(=[^ёуеыаоэяию]*)([^ёуеыаоэяию])", "$1=$2")
                 .replaceAll("=([^ёуеыаоэяию]+)=", "$1=")
                 .replaceAll("=([ьъ])", "$1=")
-                .split("=+"));
+                .split("=+"))+"]";
     }
+
+    public static String wordSplit2(String word) {
+//                String.join("-",
+//        words = word.trim().toLowerCase().split("\\s+");
+        word = word.trim().toLowerCase().replaceAll("([ёуеыаоэяию])", "$1=");
+//                        .replaceAll("(#[^ёуеыаоэяию]*)([^ёуеыаоэяию])", "$1#$2")
+//                        .replaceAll("=([^ёуеыаоэяию]*)#", "$1#")
+//                        .replaceAll("=([ьъ])", "$1=")
+//                        .replaceAll("=([^ёуеыаоэяию]+)$", "$1")
+//                        .replaceAll("(^[^ёуеыаоэяию]+)=", "$1")
+//                        .replaceAll("^=+", "")
+        return '['+word.replaceAll("=+$", "")+']';
+//                .split("=+"))
+    }
+
 }
