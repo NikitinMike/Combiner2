@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 @Controller
 public class MainController extends DataStreams {
     static final Set<String> words = readWordBook(new File("D:\\DBWords\\wordbook.txt"));
-    WordsBookRepository repository = null;
+    WordsBookRepository repository;
     Combiner data = new Combiner("вихри враждебные веют над_нами", null);
 
     public MainController(WordsBookRepository repository) {
-//        this.repository = repository;
+        this.repository = repository;
 //        System.out.println();
 //        words.stream().sorted().forEach(s -> System.out.print(s + ","));
 //        System.out.println();
@@ -46,19 +46,21 @@ public class MainController extends DataStreams {
     @GetMapping("/")
     @ResponseBody
     public ModelAndView startPage(Model model) {
-        List<String> list = getText();
-//                .map(s -> new Combiner(s, repository).randomOut(0))
-//                .collect(Collectors.toList());
-        model.addAttribute("messages", list);
-//        model.addAttribute("title", "START:" + list.size());
+        List<String> text = getText().stream()
+                .map(s -> new Combiner(s, repository).randomOut(1))
+                .collect(Collectors.toList());
+//        list.stream().map(Utils::wordSplit).forEach(System.out::println);
+//        System.out.println("*"+list.size());
+        model.addAttribute("messages", text);
+        model.addAttribute("title", "START:" + text.size());
         return new ModelAndView("page");
     }
 
-//    @GetMapping("/{i}")
+    @GetMapping("/{i}")
     @ResponseBody
     public ModelAndView startPageGet(Model model, @PathVariable int i) {
-        List<String> list = Arrays.stream(in[i])
-                .map(s -> new Combiner(s.replaceAll("[_,!.—]+", " "), repository).randomOut(0))
+        List<String> list = Arrays.stream(in[i%4])
+                .map(s -> new Combiner(s.replaceAll("[_,!.—?]+", " "), repository).randomOut(0))
                 .collect(Collectors.toList());
         model.addAttribute("messages", list);
         model.addAttribute("title", "START:" + list.size());
