@@ -15,15 +15,16 @@ import java.util.stream.Collectors;
 
 @Controller
 public class MainController extends DataStreams {
-    static final Set<String> words = readWordBook(new File("D:\\DBWords\\wordbook.txt"));
-    WordsBookRepository repository;
+    static final Set<String> words = readWordBook(new File("C:\\DBWords\\wordbook.txt"));
+    WordsBookRepository repository=null;
     Combiner data = new Combiner("вихри враждебные веют над_нами", null);
 
     public MainController(WordsBookRepository repository) {
-        this.repository = repository;
-//        System.out.println();
+//        this.repository = repository;
+//        System.out.println("ПОБЕДА");
 //        words.stream().sorted().forEach(s -> System.out.print(s + ","));
-//        System.out.println();
+//        System.out.println("победа");
+//        for (String word : words) System.out.println(word);
         System.out.printf("Wordbook %s words%n", words.size());
     }
 
@@ -46,7 +47,7 @@ public class MainController extends DataStreams {
     @GetMapping("/")
     @ResponseBody
     public ModelAndView startPage(Model model) {
-        List<String> text = getText("HappyNewYear.txt").stream()
+        List<String> text = getText("NewYear.txt").stream()
                 .map(s -> new Combiner(s, repository).randomOut(0))
                 .collect(Collectors.toList());
 //        list.stream().map(Utils::wordSplit).forEach(System.out::println);
@@ -60,7 +61,7 @@ public class MainController extends DataStreams {
     @ResponseBody
     public ModelAndView startPageGet(Model model, @PathVariable int i) {
         List<String> list = Arrays.stream(in[i % 4])
-                .map(s -> new Combiner(s.replaceAll("[_,!.—?]+", " "), repository).randomOut(1))
+                .map(s -> new Combiner(s.replaceAll("[_,!.—?;:']+", " "), repository).randomOut(1))
                 .collect(Collectors.toList());
         model.addAttribute("messages", list);
         model.addAttribute("title", "START:" + list.size());

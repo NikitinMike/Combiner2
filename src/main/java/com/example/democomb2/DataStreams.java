@@ -92,6 +92,7 @@ public class DataStreams {
                 List<String> list = Arrays.asList(words);
 //                ll += list.size();
                 Set<String> set = new HashSet<>(list);
+//                System.out.println(set);
 //                ls += set.size();
                 wordSet.addAll(set);
             } while (reader.ready());
