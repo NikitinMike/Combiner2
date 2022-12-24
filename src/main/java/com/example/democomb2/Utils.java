@@ -2,6 +2,13 @@ package com.example.democomb2;
 
 public class Utils {
 
+    static int[] f = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880};
+
+    static int factorial(int n) {
+        if (n < 10) return f[n];
+        return factorial(n - 1) * n;
+    }
+
     public static String notNull(String tag, String s) {
         return s == null ? "" : String.format(",%s='%s'", tag, s);
     }

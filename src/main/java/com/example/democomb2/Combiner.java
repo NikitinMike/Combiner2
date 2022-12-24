@@ -25,7 +25,7 @@ public class Combiner {
 //        System.out.println(str);
         words = str.trim().toLowerCase().split("\\s+");
 //        if (repository != null) DataStreams.readWordsBook(repository,words);
-        comb = new int[factorial(words.length)][words.length];
+        comb = new int[Utils.factorial(words.length)][words.length];
         IntStream.range(0, words.length).forEach(i -> comb[0][i] = i);
         amount = words.length > 1 ? combiner(words.length) : 1;
     }
@@ -53,11 +53,6 @@ public class Combiner {
         if (words.length > 3) return out(comb[(int) (Math.random() * words.length)]);
         return out(comb[(int) (Math.random() * 2)]);
 //        return out(comb[(int)(Math.random()*amount)]);
-    }
-
-    int factorial(int n) {
-        if (n > 0) return factorial(n - 1) * n;
-        return 1;
     }
 
     List<String> fullOut() {
