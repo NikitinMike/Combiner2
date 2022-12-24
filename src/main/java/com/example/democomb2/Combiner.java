@@ -39,11 +39,11 @@ public class Combiner {
             int nf = combiner(n - 1);
             for (int i = 0; i < nf; i++)
                 for (int j = 1; j < n; j++)
-                    comb[nf * j + i] = swapClone(comb[nf * (j - 1) + i], n - j, n - j - 1);
+                    comb[nf * j + i] = swapClone(comb[nf * (j - 1) + i], n - j);
             return nf * n;
         }
         // N=2
-        comb[1] = swapClone(comb[0], 0, 1);
+        comb[1] = swapClone(comb[0], 1);
         return 2;
     }
 

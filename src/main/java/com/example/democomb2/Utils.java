@@ -31,21 +31,22 @@ public class Utils {
         arr[i] = (arr[i] + arr[j]) - (arr[j] = arr[i]);
     }
 
-    public static int[] swapClone(int[] in, int a, int b) {
+    public static int[] swapClone(int[] in, int a) {
         int[] out = in.clone();
+        int b = a - 1;
         out[b] = in[a];
         out[a] = in[b];
         return out;
     }
 
     public static String wordSplit(String word) {
-        return "["+ String.join("-", word
+        return "[" + String.join("-", word
                 .replaceAll("([ёуеыаоэяию])", "$1=")
                 .replaceAll("=([^ёуеыаоэяию]+)$", "$1")
                 .replaceAll("(=[^ёуеыаоэяию]*)([^ёуеыаоэяию])", "$1=$2")
                 .replaceAll("=([^ёуеыаоэяию]+)=", "$1=")
                 .replaceAll("=([ьъ])", "$1=")
-                .split("=+"))+"]";
+                .split("=+")) + "]";
     }
 
     public static String wordSplit2(String word) {
@@ -58,7 +59,7 @@ public class Utils {
 //                        .replaceAll("=([^ёуеыаоэяию]+)$", "$1")
 //                        .replaceAll("(^[^ёуеыаоэяию]+)=", "$1")
 //                        .replaceAll("^=+", "")
-        return '['+word.replaceAll("=+$", "")+']';
+        return '[' + word.replaceAll("=+$", "") + ']';
 //                .split("=+"))
     }
 
