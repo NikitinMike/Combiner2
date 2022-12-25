@@ -34,8 +34,9 @@ public class Utils {
     public static int[] swapClone(int[] in, int a) {
         int[] out = in.clone();
         int b = a - 1;
-        out[b] = in[a];
-        out[a] = in[b];
+        int c = out[b];
+        out[b] = out[a];
+        out[a] = c;
         return out;
     }
 
