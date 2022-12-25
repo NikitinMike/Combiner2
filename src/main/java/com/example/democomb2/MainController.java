@@ -21,9 +21,9 @@ public class MainController extends DataStreams {
 
     public MainController(WordsBookRepository repository) {
 //        this.repository = repository;
-//        System.out.println("ПОБЕДА");
-//        words.stream().sorted().forEach(s -> System.out.print(s + ","));
-//        System.out.println("победа");
+        System.out.println("ПОБЕДА");
+        words.stream().sorted().forEach(s -> System.out.print(s + ","));
+        System.out.println("победа");
 //        for (String word : words) System.out.println(word);
         System.out.printf("Wordbook %s words%n", words.size());
     }

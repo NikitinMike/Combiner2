@@ -57,7 +57,8 @@ public class DataStreams {
 
     String[][] in = {hymn, sobaka, vorona, chuchelo};
 
-    static List<WordsBookEntity> readWordsBook(WordsBookRepository repository, String[] words) {
+    static Hashtable<String, List<WordsBookEntity>> readWordsBookDB(WordsBookRepository repository, String[] words) {
+        Hashtable<String, List<WordsBookEntity>> wordsEntityHashMap = new Hashtable<>();
 //        return Arrays.stream(words).flatMap(word -> repository.findAllByWord(word).stream()).collect(Collectors.toList());
         for (String word : words) {
 //            String [] subWords = word.split("_");
@@ -68,12 +69,12 @@ public class DataStreams {
                 wordsBookEntities = Collections.singletonList(new WordsBookEntity(word));
 //            System.out.println(wordsBookEntities);
 //            WordsBookEntity [] wordBook = (WordsBookEntity[]) wordsBookEntities.toArray();
-//            wordsEntityHashMap.put(word,wordsEntity);
+            wordsEntityHashMap.put(word,wordsBookEntities);
         }
 //        for (WordsBookEntity word : wordsEntityList) System.out.println(word);
         //            wordsEntityHashMap.put(word.getWord(),word);
-//        return wordsEntityList;
-        return null;
+        return wordsEntityHashMap;
+//        return null;
     }
 
     static Set<String> readWordBook(File fileIn) {
@@ -85,7 +86,9 @@ public class DataStreams {
 //                l += line.length();
                 String[] lines = line.split("#");
 //                System.out.print(lines[0]+",");
-                String[] words = lines[1].split(",");
+                String[] words = lines[1]
+                        .replaceAll("[^ёуеыаоэяию,']","")
+                        .split(",");
 //                Arrays.stream(words).forEach(System.out::print);
 //                System.out.println(String.join(",", words));
 //                w += words.length;
